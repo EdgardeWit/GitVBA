@@ -3,7 +3,7 @@ Option Explicit
 
 Public gsApplicationPath As String
 Public mbOK As Boolean
-
+Public gsRepository As String
 
 Public Sub InitGlobals()
     
@@ -12,5 +12,7 @@ Public Sub InitGlobals()
     If Not FileExists(gsApplicationPath) Then
         MsgBox "The database path " & gsApplicationPath & " does not exists. Please change this in settings.", vbExclamation
     End If
+    
+    gsRepository = GetRightFolder(gsApplicationPath)
     
 End Sub
