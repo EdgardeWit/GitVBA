@@ -13,6 +13,25 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub cmdBrowsePath_Click()
+    Dim sPath As String
+    sPath = BrowseFolder("Select ApplicationPath")
+    If Right$(sPath, 1) <> "\" Then sPath = sPath & "\"
+    Me.txtApplicationPath = sPath
+End Sub
+
+Private Sub cmdCancel_Click()
+    mbOK = False
+    Me.Hide
+End Sub
+
+Private Sub cmdOK_Click()
+    If CheckInput() Then
+        mbOK = True
+        Me.Hide
+    End If
+End Sub
+
 Private Sub UserForm_Initialize()
     
     Me.txtApplicationPath = gsApplicationPath
