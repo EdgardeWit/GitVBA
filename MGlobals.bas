@@ -2,6 +2,8 @@ Attribute VB_Name = "MGlobals"
 Option Explicit
 
 Public gsApplicationPath As String
+Public mbOK As Boolean
+
 
 Public Sub InitGlobals()
     

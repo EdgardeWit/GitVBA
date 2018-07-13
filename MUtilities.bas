@@ -15,20 +15,20 @@ Function FolderWithVBAProjectFiles() As String
     Set WshShell = CreateObject("WScript.Shell")
     Set FSO = CreateObject("scripting.filesystemobject")
 
-    SpecialPath = "C:\Users\Edgar\Downloads" 'WshShell.SpecialFolders("MyDocuments")
+    SpecialPath = gsApplicationPath 'WshShell.SpecialFolders("MyDocuments")
 
     If Right(SpecialPath, 1) <> "\" Then
         SpecialPath = SpecialPath & "\"
     End If
     
-    If FSO.FolderExists(SpecialPath & "VBAProjectFiles") = False Then
+    If FSO.FolderExists(SpecialPath) = False Then
         On Error Resume Next
-        MkDir SpecialPath & "VBAProjectFiles"
+        MkDir SpecialPath
         On Error GoTo 0
     End If
     
-    If FSO.FolderExists(SpecialPath & "VBAProjectFiles") = True Then
-        FolderWithVBAProjectFiles = SpecialPath & "VBAProjectFiles"
+    If FSO.FolderExists(SpecialPath) = True Then
+        FolderWithVBAProjectFiles = SpecialPath
     Else
         FolderWithVBAProjectFiles = "Error"
     End If
