@@ -1,11 +1,25 @@
-Attribute VB_Name = "GitVBA"
+Attribute VB_Name = "MBusiness"
 '---------------------------------------------------------------------------------------
 ' File   : GitVBA
 ' Author : Edgar de Wit
 ' Date   : 12-07-18
 ' Purpose: Import and Export VBA
+' Info   : Startpoint https://www.rondebruin.nl/win/s9/win002.htm
 '---------------------------------------------------------------------------------------
 Option Explicit
+
+Sub MaintainSettings()
+    Dim frmMaintainSettings As FrmSettings
+    Set frmMaintainSettings = New FrmSettings
+    With frmMaintainSettings
+        .Show
+        If .OK Then
+            SaveSetting "GitVBA", "Repository", "Path", .sPath
+            InitGlobals 'Zorgt er voor dat de nieuwe settings van kracht zijn
+        End If
+    End With
+    Unload frmMaintainSettings
+End Sub
 
 '---------------------------------------------------------------------------------------
 ' Method : ExportModules
@@ -79,7 +93,6 @@ Public Sub ExportModules()
     MsgBox "Export is ready"
 End Sub
 
-
 '---------------------------------------------------------------------------------------
 ' Method : ImportModules
 ' Author : Edgar de Wit
@@ -145,60 +158,4 @@ Public Sub ImportModules()
     
     MsgBox "Import is ready"
 End Sub
-
-'---------------------------------------------------------------------------------------
-' Method : FolderWithVBAProjectFiles
-' Author : Edgar de Wit
-' Date   : 12-07-18
-' Purpose: Check Folder
-'---------------------------------------------------------------------------------------
-Function FolderWithVBAProjectFiles() As String
-    Dim WshShell As Object
-    Dim FSO As Object
-    Dim SpecialPath As String
-
-    Set WshShell = CreateObject("WScript.Shell")
-    Set FSO = CreateObject("scripting.filesystemobject")
-
-    SpecialPath = "C:\Users\Edgar\Downloads" 'WshShell.SpecialFolders("MyDocuments")
-
-    If Right(SpecialPath, 1) <> "\" Then
-        SpecialPath = SpecialPath & "\"
-    End If
-    
-    If FSO.FolderExists(SpecialPath & "VBAProjectFiles") = False Then
-        On Error Resume Next
-        MkDir SpecialPath & "VBAProjectFiles"
-        On Error GoTo 0
-    End If
-    
-    If FSO.FolderExists(SpecialPath & "VBAProjectFiles") = True Then
-        FolderWithVBAProjectFiles = SpecialPath & "VBAProjectFiles"
-    Else
-        FolderWithVBAProjectFiles = "Error"
-    End If
-    
-End Function
-
-'---------------------------------------------------------------------------------------
-' Method : DeleteVBAModulesAndUserForms
-' Author : Edgar de Wit
-' Date   : 12-07-18
-' Purpose: Delete existing VBA modules
-'---------------------------------------------------------------------------------------
-Function DeleteVBAModulesAndUserForms()
-        Dim VBProj As VBIDE.VBProject
-        Dim VBComp As VBIDE.VBComponent
-        
-        Set VBProj = ActiveWorkbook.VBProject
-        
-        For Each VBComp In VBProj.VBComponents
-            If VBComp.Type = vbext_ct_Document Then
-                'Thisworkbook or worksheet module
-                'We do nothing
-            Else
-                VBProj.VBComponents.Remove VBComp
-            End If
-        Next VBComp
-End Function
 
