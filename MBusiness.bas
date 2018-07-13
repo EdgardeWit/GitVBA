@@ -33,7 +33,7 @@ Public Sub ExportModules()
     Dim szSourceWorkbook As String
     Dim szExportPath As String
     Dim szFileName As String
-    Dim cmpComponent As VBIDE.VBComponent
+    Dim cmpComponent As VBIDE.VBComponent, Message As String
 
     ''' The code modules will be exported in a folder named.
     ''' VBAProjectFiles in the Documents folder.
@@ -43,6 +43,10 @@ Public Sub ExportModules()
         MsgBox "Export Folder not exist"
         Exit Sub
     End If
+    
+    Message = MsgBox("Do you want to check out the repository " & gsRepository & "?", vbYesNo, "Check Out")
+    
+    If Message = "7" Then Exit Sub
     
     On Error Resume Next
         Kill FolderWithVBAProjectFiles & "\*.*"
@@ -90,7 +94,7 @@ Public Sub ExportModules()
    
     Next cmpComponent
 
-    MsgBox "Export is ready"
+    MsgBox "Check Out is done"
 End Sub
 
 '---------------------------------------------------------------------------------------
@@ -106,7 +110,7 @@ Public Sub ImportModules()
     Dim szTargetWorkbook As String
     Dim szImportPath As String
     Dim szFileName As String
-    Dim cmpComponents As VBIDE.VBComponents
+    Dim cmpComponents As VBIDE.VBComponents, Message As String
 
     If ActiveWorkbook.Name = ThisWorkbook.Name Then
         MsgBox "Select another destination workbook" & _
@@ -129,6 +133,10 @@ Public Sub ImportModules()
         "not possible to Import the code"
     Exit Sub
     End If
+    
+    Message = MsgBox("Do you want to check in the repository " & gsRepository & "?", vbYesNo, "Check Out")
+    
+    If Message = "7" Then Exit Sub
 
     ''' NOTE: Path where the code modules are located.
     szImportPath = FolderWithVBAProjectFiles & "\"
@@ -156,6 +164,6 @@ Public Sub ImportModules()
         
     Next objFile
     
-    MsgBox "Import is ready"
+    MsgBox "Check In is done"
 End Sub
 
