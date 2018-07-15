@@ -8,6 +8,13 @@ Attribute VB_Name = "MBusiness"
 '---------------------------------------------------------------------------------------
 Option Explicit
 
+'---------------------------------------------------------------------------------------
+' Method : MaintainSettings
+' Author : Edgar de Wit
+' Date   : 15-07-18
+' Purpose: Activate Settings window
+'---------------------------------------------------------------------------------------
+
 Sub MaintainSettings()
     Dim frmMaintainSettings As FrmSettings
     Set frmMaintainSettings = New FrmSettings
@@ -25,7 +32,7 @@ End Sub
 ' Method : ExportModules
 ' Author : Edgar de Wit
 ' Date   : 12-07-18
-' Purpose: Export modules
+' Purpose: Export every module in active workbook to path
 '---------------------------------------------------------------------------------------
 Public Sub ExportModules()
     Dim bExport As Boolean
@@ -44,7 +51,7 @@ Public Sub ExportModules()
         Exit Sub
     End If
     
-    Message = MsgBox("Do you want to check out the repository " & gsRepository & "?", vbYesNo, "Check Out")
+    Message = MsgBox("Do you want to check out the repository " & gsRepository & "?", vbYesNo, "GitVBA: Check Out")
     
     If Message = "7" Then Exit Sub
     
@@ -94,22 +101,19 @@ Public Sub ExportModules()
    
     Next cmpComponent
 
-    MsgBox "Check Out is done"
+    MsgBox "Check Out is done", vbInformation, "GitVBA: Check out"
 End Sub
 
 '---------------------------------------------------------------------------------------
 ' Method : ImportModules
 ' Author : Edgar de Wit
 ' Date   : 12-07-18
-' Purpose: Import Modules
+' Purpose: Replace all modules in active workbook with repository
 '---------------------------------------------------------------------------------------
 Public Sub ImportModules()
-    Dim wkbTarget As Excel.Workbook
-    Dim objFSO As Scripting.FileSystemObject
-    Dim objFile As Scripting.File
-    Dim szTargetWorkbook As String
-    Dim szImportPath As String
-    Dim szFileName As String
+    Dim wkbTarget As Excel.Workbook, objFSO As Scripting.FileSystemObject
+    Dim objFile As Scripting.File, szTargetWorkbook As String
+    Dim szImportPath As String, szFileName As String
     Dim cmpComponents As VBIDE.VBComponents, Message As String
 
     If ActiveWorkbook.Name = ThisWorkbook.Name Then
@@ -134,7 +138,7 @@ Public Sub ImportModules()
     Exit Sub
     End If
     
-    Message = MsgBox("Do you want to check in the repository " & gsRepository & "?", vbYesNo, "Check Out")
+    Message = MsgBox("Do you want to check in the repository " & gsRepository & "?", vbYesNo, "GitVBA: Check In")
     
     If Message = "7" Then Exit Sub
 
@@ -164,6 +168,5 @@ Public Sub ImportModules()
         
     Next objFile
     
-    MsgBox "Check In is done"
+    MsgBox "Check In is done", vbInformation, "GitVBA: Check In"
 End Sub
-

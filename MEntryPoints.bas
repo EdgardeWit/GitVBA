@@ -1,5 +1,19 @@
 Attribute VB_Name = "MEntryPoints"
+'---------------------------------------------------------------------------------------
+' File   : MEntryPoints
+' Author : Edgar de Wit
+' Date   : 15-07-18
+' Purpose: Start points of this application
+'---------------------------------------------------------------------------------------
+
 Option Explicit
+
+'---------------------------------------------------------------------------------------
+' Method : ribbonClick
+' Author : Edgar de Wit
+' Date   : 12-07-18
+' Purpose: Catch up module for the toolbar
+'---------------------------------------------------------------------------------------
 
 Public Sub ribbonClick(control As IRibbonControl)
 
