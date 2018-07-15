@@ -52,7 +52,6 @@ Public Sub ExportModules()
     End If
     
     Message = MsgBox("Do you want to check out the repository " & gsRepository & "?", vbYesNo, "GitVBA: Check Out")
-    
     If Message = "7" Then Exit Sub
     
     On Error Resume Next
