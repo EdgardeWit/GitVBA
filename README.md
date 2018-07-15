@@ -1,6 +1,6 @@
 # GITVBA
 
-*VBA program for checking in and out of your code to a source control repository
+*VBA program for checking in and out of your code to a source control repository*
 
 In programming, source control is an important, if not a time-saving / necessary job. In addition, source control brings all kinds of advantages in code review, version management and collaboration.
 
@@ -10,7 +10,7 @@ Unfortunately, this is not the case for Visual Basic for Applications (abbreviat
 
 Your VBA code sit in the VBA editor and is a time-consuming task to store all that code in separate files.
 
-**GitVBA solves that for you.
+**GitVBA solves that for you.**
 
 You choose a desired repository location, program your VBA project. And if you are ready, check the project out to your repository folder.
 
