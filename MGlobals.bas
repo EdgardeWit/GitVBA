@@ -6,7 +6,6 @@ Option Explicit
 'Microsoft Scripting Runtime
 'Microsoft Visual Basic for Applications Extensibility 5.3
 
-'Public appversion As String = "v1"
 Public Const xla = "GitVBA"
 Public Const web = "https://github.com/EdgardeWit/GitVBA"
 Public Const legal = ""
