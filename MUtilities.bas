@@ -15,20 +15,17 @@ Function FolderWithVBAProjectFiles() As String
     Set WshShell = CreateObject("WScript.Shell")
     Set FSO = CreateObject("scripting.filesystemobject")
 
-    SpecialPath = gsApplicationPath 'WshShell.SpecialFolders("MyDocuments")
-
-    If Right(SpecialPath, 1) <> "\" Then
-        SpecialPath = SpecialPath & "\"
-    End If
+    If gsApplicationPath <> "" Then
+        SpecialPath = gsApplicationPath
+        If Right(gsApplicationPath, 1) <> "\" Then
+            SpecialPath = gsApplicationPath & "\"
+        End If
     
-    If FSO.FolderExists(SpecialPath) = False Then
-        On Error Resume Next
-        MkDir SpecialPath
-        On Error GoTo 0
-    End If
-    
-    If FSO.FolderExists(SpecialPath) = True Then
-        FolderWithVBAProjectFiles = SpecialPath
+        If FSO.FolderExists(SpecialPath) = True Then
+            FolderWithVBAProjectFiles = SpecialPath
+        Else
+            FolderWithVBAProjectFiles = "Error"
+        End If
     Else
         FolderWithVBAProjectFiles = "Error"
     End If
@@ -42,17 +39,17 @@ End Function
 ' Purpose: Delete existing VBA modules
 '---------------------------------------------------------------------------------------
 Function DeleteVBAModulesAndUserForms()
-        Dim VBProj As VBIDE.VBProject
+        Dim vbProj As VBIDE.VBProject
         Dim VBComp As VBIDE.VBComponent
         
-        Set VBProj = ActiveWorkbook.VBProject
+        Set vbProj = ActiveWorkbook.VBProject
         
-        For Each VBComp In VBProj.VBComponents
+        For Each VBComp In vbProj.VBComponents
             If VBComp.Type = vbext_ct_Document Then
                 'Thisworkbook or worksheet module
                 'We do nothing
             Else
-                VBProj.VBComponents.Remove VBComp
+                vbProj.VBComponents.Remove VBComp
             End If
         Next VBComp
 End Function
@@ -167,3 +164,5 @@ Function GetRightFolder(fname) As String
     a = Split(fname, "\")
     GetRightFolder = a(UBound(a) - 1)
 End Function
+
+

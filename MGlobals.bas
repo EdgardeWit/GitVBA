@@ -1,6 +1,17 @@
 Attribute VB_Name = "MGlobals"
 Option Explicit
 
+'This application needs the following references. Please check before running
+'Microsoft Office 16.0 Object Library
+'Microsoft Scripting Runtime
+'Microsoft Visual Basic for Applications Extensibility 5.3
+
+'Public appversion As String = "v1"
+Public Const xla = "GitVBA"
+Public Const web = "https://github.com/EdgardeWit/GitVBA"
+Public Const legal = ""
+Public Const version = "1.00"
+
 Public gsApplicationPath As String
 Public mbOK As Boolean
 Public gsRepository As String

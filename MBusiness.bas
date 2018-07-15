@@ -29,12 +29,12 @@ Sub MaintainSettings()
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Method : ExportModules
+' Method : CheckOut
 ' Author : Edgar de Wit
 ' Date   : 12-07-18
 ' Purpose: Export every module in active workbook to path
 '---------------------------------------------------------------------------------------
-Public Sub ExportModules()
+Public Sub CheckOut()
     Dim bExport As Boolean
     Dim wkbSource As Excel.Workbook
     Dim szSourceWorkbook As String
@@ -52,7 +52,6 @@ Public Sub ExportModules()
     End If
     
     Message = MsgBox("Do you want to check out the repository " & gsRepository & "?", vbYesNo, "GitVBA: Check Out")
-    
     If Message = "7" Then Exit Sub
     
     On Error Resume Next
@@ -100,25 +99,29 @@ Public Sub ExportModules()
         End If
    
     Next cmpComponent
+    
+    Application.DisplayAlerts = False
+    ActiveWorkbook.SaveAs gsApplicationPath & ActiveWorkbook.Name, FileFormat:=52
+    Application.DisplayAlerts = True
 
     MsgBox "Check Out is done", vbInformation, "GitVBA: Check out"
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Method : ImportModules
+' Method : CheckIn
 ' Author : Edgar de Wit
 ' Date   : 12-07-18
 ' Purpose: Replace all modules in active workbook with repository
 '---------------------------------------------------------------------------------------
-Public Sub ImportModules()
+Public Sub CheckIn()
     Dim wkbTarget As Excel.Workbook, objFSO As Scripting.FileSystemObject
     Dim objFile As Scripting.File, szTargetWorkbook As String
     Dim szImportPath As String, szFileName As String
     Dim cmpComponents As VBIDE.VBComponents, Message As String
 
     If ActiveWorkbook.Name = ThisWorkbook.Name Then
-        MsgBox "Select another destination workbook" & _
-        "Not possible to import in this workbook "
+        MsgBox "Select another destination workbook. " & _
+        "Not possible to import in this workbook", vbCritical, "GitVBA: Check Out failed"
         Exit Sub
     End If
 
@@ -134,7 +137,7 @@ Public Sub ImportModules()
     
     If wkbTarget.VBProject.Protection = 1 Then
     MsgBox "The VBA in this workbook is protected," & _
-        "not possible to Import the code"
+        "not possible to Import the code", vbCritical, "GitVBA: Check Out failed"
     Exit Sub
     End If
     
@@ -168,5 +171,27 @@ Public Sub ImportModules()
         
     Next objFile
     
-    MsgBox "Check In is done", vbInformation, "GitVBA: Check In"
+    MsgBox "Check In is done", vbInformation, "GitVBA: Check In complete"
+End Sub
+
+Sub CreateAddin()
+    Dim Message As String
+    
+    If gsRepository = "" Then InitGlobals
+    
+    If gsRepository <> "" Then
+        Message = MsgBox("Do you want create an add-in from this file to " & gsRepository & "?", vbYesNo, "GitVBA: Create Add-in")
+        If Message = "7" Then Exit Sub
+        
+        
+        Application.DisplayAlerts = False
+        ActiveWorkbook.SaveAs gsApplicationPath & GetRightFolder(ActiveWorkbook.FullName), FileFormat:=55
+        Application.DisplayAlerts = True
+    
+        MsgBox "Add-in is created", vbInformation, "GitVBA: Add-in created"
+    Else
+        Message = MsgBox("Repository path is empty, please check", vbCritical, "GitVBA: No add-in")
+        
+    End If
+    
 End Sub
