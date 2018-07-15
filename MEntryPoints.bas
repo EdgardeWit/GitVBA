@@ -24,6 +24,8 @@ On Error GoTo ErrorHandler
             CheckIn
         Case "CheckOut"
             CheckOut
+        Case "Addin"
+            CreateAddin
         Case "Settings"
             MaintainSettings
     End Select
@@ -38,6 +40,3 @@ ErrorHandler:
     Resume ErrorExit
 
 End Sub
-
-
-

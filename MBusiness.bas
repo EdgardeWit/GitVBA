@@ -173,3 +173,25 @@ Public Sub CheckIn()
     
     MsgBox "Check In is done", vbInformation, "GitVBA: Check In complete"
 End Sub
+
+Sub CreateAddin()
+    Dim Message As String
+    
+    If gsRepository = "" Then InitGlobals
+    
+    If gsRepository <> "" Then
+        Message = MsgBox("Do you want create an add-in from this file to " & gsRepository & "?", vbYesNo, "GitVBA: Create Add-in")
+        If Message = "7" Then Exit Sub
+        
+        
+        Application.DisplayAlerts = False
+        ActiveWorkbook.SaveAs gsApplicationPath & GetRightFolder(ActiveWorkbook.FullName), FileFormat:=55
+        Application.DisplayAlerts = True
+    
+        MsgBox "Add-in is created", vbInformation, "GitVBA: Add-in created"
+    Else
+        Message = MsgBox("Repository path is empty, please check", vbCritical, "GitVBA: No add-in")
+        
+    End If
+    
+End Sub
