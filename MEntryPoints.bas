@@ -20,9 +20,9 @@ Public Sub ribbonClick(control As IRibbonControl)
 On Error GoTo ErrorHandler
 
     Select Case control.Tag
-        Case "ImportModules"
+        Case "CheckIn"
             CheckIn
-        Case "ExportModules"
+        Case "CheckOut"
             CheckOut
         Case "Settings"
             MaintainSettings

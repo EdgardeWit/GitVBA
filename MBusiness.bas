@@ -99,6 +99,10 @@ Public Sub CheckOut()
         End If
    
     Next cmpComponent
+    
+    Application.DisplayAlerts = False
+    ActiveWorkbook.SaveAs gsApplicationPath & ActiveWorkbook.Name, FileFormat:=52
+    Application.DisplayAlerts = True
 
     MsgBox "Check Out is done", vbInformation, "GitVBA: Check out"
 End Sub
