@@ -34,6 +34,7 @@ End Sub
 
 Private Sub UserForm_Initialize()
     
+    If gsApplication = "" Then InitGlobals
     Me.txtApplicationPath = gsApplicationPath
 
 End Sub

@@ -56,7 +56,13 @@ Function DeleteVBAModulesAndUserForms()
             End If
         Next VBComp
 End Function
- 
+
+'---------------------------------------------------------------------------------------
+' Method : getFileName
+' Author : Edgar de Wit
+' Date   : 15-07-18
+' Purpose: Get filename from title
+'---------------------------------------------------------------------------------------
  Public Function getFileName(sTitle As String) As String
  
     With Application.FileDialog(msoFileDialogOpen)
@@ -71,14 +77,28 @@ End Function
     End With
 
 End Function
+
+'---------------------------------------------------------------------------------------
+' Method : SheetExists
+' Author : Edgar de Wit
+' Date   : 15-07-18
+' Purpose: Check if a sheet exists (from Chip Pearson)
+'---------------------------------------------------------------------------------------
+
 Function SheetExists(SName As String, Optional ByVal wb As Workbook) As Boolean
-'Chip Pearson
     On Error Resume Next
     If wb Is Nothing Then Set wb = ThisWorkbook
     SheetExists = CBool(Len(wb.Sheets(SName).Name))
 End Function
+
+'---------------------------------------------------------------------------------------
+' Method : FileExists
+' Author : Edgar de Wit
+' Date   : 15-07-18
+' Purpose: Check if a file exists (from Chip Pearson)
+'---------------------------------------------------------------------------------------
+
 Function FileExists(sPath As String) As Boolean
-'Chip Pearson
     Dim FilePath As String
     Dim TestStr As String
 
@@ -99,10 +119,17 @@ Function FileExists(sPath As String) As Boolean
     End If
 
 End Function
-Function BrowseFolder(Title As String, _
-        Optional InitialFolder As String = vbNullString, _
-        Optional InitialView As Office.MsoFileDialogView = _
-            msoFileDialogViewList) As String
+
+'---------------------------------------------------------------------------------------
+' Method : BrowseFolder
+' Author : Edgar de Wit
+' Date   : 15-07-18
+' Purpose: Browse to folder
+'---------------------------------------------------------------------------------------
+
+Function BrowseFolder(Title As String, Optional InitialFolder As String = vbNullString, _
+        Optional InitialView As Office.MsoFileDialogView = msoFileDialogViewList) As String
+    
     Dim V As Variant
     Dim InitFolder As String
     With Application.FileDialog(msoFileDialogFolderPicker)
@@ -128,6 +155,12 @@ Function BrowseFolder(Title As String, _
     BrowseFolder = CStr(V)
 End Function
 
+'---------------------------------------------------------------------------------------
+' Method : GetRightFolder
+' Author : Edgar de Wit
+' Date   : 15-07-18
+' Purpose: Get the last folder
+'---------------------------------------------------------------------------------------
 
 Function GetRightFolder(fname) As String
     Dim a
