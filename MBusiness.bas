@@ -29,12 +29,12 @@ Sub MaintainSettings()
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Method : ExportModules
+' Method : CheckOut
 ' Author : Edgar de Wit
 ' Date   : 12-07-18
 ' Purpose: Export every module in active workbook to path
 '---------------------------------------------------------------------------------------
-Public Sub ExportModules()
+Public Sub CheckOut()
     Dim bExport As Boolean
     Dim wkbSource As Excel.Workbook
     Dim szSourceWorkbook As String
@@ -104,20 +104,20 @@ Public Sub ExportModules()
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Method : ImportModules
+' Method : CheckIn
 ' Author : Edgar de Wit
 ' Date   : 12-07-18
 ' Purpose: Replace all modules in active workbook with repository
 '---------------------------------------------------------------------------------------
-Public Sub ImportModules()
+Public Sub CheckIn()
     Dim wkbTarget As Excel.Workbook, objFSO As Scripting.FileSystemObject
     Dim objFile As Scripting.File, szTargetWorkbook As String
     Dim szImportPath As String, szFileName As String
     Dim cmpComponents As VBIDE.VBComponents, Message As String
 
     If ActiveWorkbook.Name = ThisWorkbook.Name Then
-        MsgBox "Select another destination workbook" & _
-        "Not possible to import in this workbook "
+        MsgBox "Select another destination workbook. " & _
+        "Not possible to import in this workbook", vbCritical, "GitVBA: Check Out failed"
         Exit Sub
     End If
 
@@ -133,7 +133,7 @@ Public Sub ImportModules()
     
     If wkbTarget.VBProject.Protection = 1 Then
     MsgBox "The VBA in this workbook is protected," & _
-        "not possible to Import the code"
+        "not possible to Import the code", vbCritical, "GitVBA: Check Out failed"
     Exit Sub
     End If
     
@@ -167,5 +167,5 @@ Public Sub ImportModules()
         
     Next objFile
     
-    MsgBox "Check In is done", vbInformation, "GitVBA: Check In"
+    MsgBox "Check In is done", vbInformation, "GitVBA: Check In complete"
 End Sub

@@ -21,9 +21,9 @@ On Error GoTo ErrorHandler
 
     Select Case control.Tag
         Case "ImportModules"
-            ImportModules
+            CheckIn
         Case "ExportModules"
-            ExportModules
+            CheckOut
         Case "Settings"
             MaintainSettings
     End Select
