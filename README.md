@@ -60,5 +60,5 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Acknowledgments
 
-* If you also use your project as an add-in, use the "Create Add-in" function after Check out. The function "Check out" removes any existing add-in file.
+* If you also use your project as an add-in, use the "Create Add-in" function after Check out. The function "Check In" removes any existing add-in file.
 * It is not possible to export toolbar buttons separately. These buttons are in your Excel file.
